@@ -15,8 +15,8 @@
 
 ## Try to find peaks
   library(pracma)
-  nups = 6 #How many steps needed to count as a peak
-  findpeaks(GP_200, nups = 6, ndowns = nups, zero = "0", peakpat = NULL,
+  nups = 10 #How many steps needed to count as a peak
+  findpeaks(GP_200, nups = 10, ndowns = nups, zero = "0", peakpat = NULL,
             minpeakheight = -Inf, minpeakdistance = 1,
             threshold = 0, npeaks = 0, sortstr = FALSE)
 
