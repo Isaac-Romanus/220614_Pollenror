@@ -20,6 +20,13 @@
             minpeakheight = -Inf, minpeakdistance = 1,
             threshold = 0, npeaks = 0, sortstr = FALSE)
   
+  plot_GP_avstånd = function(from, to) {
+      utvald_data = pollen_dataframe [from:to, c("Avstand", "GP")]
+      avstand_100 = pollen_dataframe [from:to, "Avstand"]
+      GP = pollen_dataframe [from:to, "GP"]
+      plot(utvald_data)
+  }
+  
   GP_peaks = function(GP_vector, nups = 10, halfpixel = FALSE) {
             library(pracma)
             peaks_matrix =  findpeaks(GP_vector, nups = nups, ndowns = nups, 
