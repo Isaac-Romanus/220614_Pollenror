@@ -13,12 +13,28 @@
   require(graphics) 
   plot(utvald_data)
 
-## Try to find peaks
+## Try to find peaks, col 1 = value, col 2 = peak avstånd, col 3/4 = start/end
   library(pracma)
-  nups = 10 #How many steps needed to count as a peak
+  nups = 10
   findpeaks(GP_200, nups = 10, ndowns = nups, zero = "0", peakpat = NULL,
             minpeakheight = -Inf, minpeakdistance = 1,
             threshold = 0, npeaks = 0, sortstr = FALSE)
+  
+  GP_peaks = function(GP_vector, nups = 10, halfpixel = FALSE) {
+            library(pracma)
+            peaks_matrix =  findpeaks(GP_vector, nups = nups, ndowns = nups, 
+                            zero = "0", peakpat = NULL,minpeakheight = -Inf, 
+                            minpeakdistance = 1, threshold = 0, npeaks = 0, 
+                            sortstr = FALSE)
+            
+                     if (halfpixel == TRUE) {
+                      half_peaks_mat = peaks_matrix[, 2:4] / 2
+                      peaks_matrix = cbind(peaks_matrix[, 1], half_peaks_mat)
+                     }
+            
+            peaks_matrix
+  }
+ GP_peaks(GP_200, halfpixel = TRUE)
 
 print("done")
   
