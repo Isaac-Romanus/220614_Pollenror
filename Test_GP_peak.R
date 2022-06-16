@@ -6,13 +6,19 @@
   
   
 ##  A loop for going through the pollentubes
-  for (i in 1:600) {
-    if (pollen_dataframe[i, "Avstand"] == 1 ){
-      
-      # utvald_data = pollen_dataframe [i:i + 99, c("Avstand", "GP")]
-      # avstand_100 = pollen_dataframe [i:i + 99, "Avstand"]
-      # GP = pollen_dataframe [from:to, "GP"]
-      # plot(utvald_data)
+  i = 1
+  for (i in 1:300) {
+    if (
+      (pollen_dataframe[i, "Avstand"] +  
+       pollen_dataframe[(i + 1) , "Avstand"]) 
+      == 3 ) {
+      print(i)
+      print("start") ##----------------------------------------------------extra
+      utvald_data = pollen_dataframe [i:(i + 99), c("Avstand", "GP")]
+      avstand_100 = pollen_dataframe [i:(i + 99), "Avstand"]
+      GP = pollen_dataframe [i:(i + 99), "GP"]
+      print(utvald_data)
+      plot(utvald_data) ##------------------------------------------------extra
       
       # plot_GP_avstand(i, i + 199)
       GP_matrix = GP_peaks(GP)
@@ -24,17 +30,21 @@
                pollen_dataframe[i, "Sida"]), 
         GP_matrix)
       
-    }     else if ((pollen_dataframe[i, "Avstand"] == 0.5 )) {
-      
-        utvald_data = pollen_dataframe [from:to, c("Avstand", "GP")]
-        avstand_100 = pollen_dataframe [from:to, "Avstand"]
-        GP = pollen_dataframe [from:to, "GP"]
+    }     else if (
+                    (pollen_dataframe[i, "Avstand"] +  
+                    pollen_dataframe[(i + 1) , "Avstand"]) 
+                  == 1.5 ) {
+        print(i) ##-----------------------------------------------extra
+        utvald_data = pollen_dataframe [i:(i +199), c("Avstand", "GP")]
+        avstand_100 = pollen_dataframe [i:(i +199), "Avstand"]
+        GP = pollen_dataframe[i: (i + 199), "GP"]
+        print(GP) ##---------------------------------------------extra
         plot(utvald_data)
        
       # plot_GP_avstand(i, i + 199)
       
       GP_matrix = GP_peaks(GP, halfpixel = TRUE)
-      
+      print(GP_matrix) ##-------------------------------------------------extra
       assign(
         paste0("GP_matrix_cell_",
                pollen_dataframe[i, "Cell"],
@@ -102,6 +112,7 @@
   }
   
  GP_test = GP_peaks(GP_200, halfpixel = TRUE)
+ GP_test
 
 print("done")
   
