@@ -1,5 +1,5 @@
 ##  Setup with working directory and file names 
-##  setwd("C:/Users/isaac/Documents/Universitetet/Parmryd et al/Statistik/220614_Pollenror")
+##  setwd("C:/Users/isaac/Documents/220614_Pollenror")
   datafile = "E1_Copy_2022_05_18_GP_data_pollenror.csv"
   pollen_dataframe = read.table(datafile, header = TRUE, sep = ",")
   pollen_dataframe
@@ -11,7 +11,7 @@
     if (
       (pollen_dataframe[i, "Avstand"] +  
        pollen_dataframe[(i + 1) , "Avstand"]) 
-      == 3 ) {
+      == 3 ) {##------------------------Logical to check if whole pixel distance
       print(i)
       print("start") ##----------------------------------------------------extra
       utvald_data = pollen_dataframe [i:(i + 99), c("Avstand", "GP")]
@@ -23,6 +23,7 @@
       # plot_GP_avstand(i, i + 199)
       GP_matrix = GP_peaks(GP)
       
+      ##-------------------------------------------------------Naming scheme
       assign(
         paste0("GP_matrix_cell_",
                pollen_dataframe[i, "Cell"],
@@ -33,8 +34,8 @@
     }     else if (
                     (pollen_dataframe[i, "Avstand"] +  
                     pollen_dataframe[(i + 1) , "Avstand"]) 
-                  == 1.5 ) {
-        print(i) ##-----------------------------------------------extra
+                  == 1.5 ) {##---------Logical to check if whole pixel distance
+        print(i) ##------------------------------------------------------extra
         utvald_data = pollen_dataframe [i:(i +199), c("Avstand", "GP")]
         avstand_100 = pollen_dataframe [i:(i +199), "Avstand"]
         GP = pollen_dataframe[i: (i + 199), "GP"]
@@ -45,6 +46,8 @@
       
       GP_matrix = GP_peaks(GP, halfpixel = TRUE)
       print(GP_matrix) ##-------------------------------------------------extra
+      
+      ##----------------------------------------------------------Naming scheme
       assign(
         paste0("GP_matrix_cell_",
                pollen_dataframe[i, "Cell"],
@@ -55,7 +58,8 @@
     }
   }
   
-  GP_test = GP_peaks(GP_200, halfpixel = TRUE)
+  
+  ## GP_test = GP_peaks(GP_200, halfpixel = TRUE)
 ## Naming experiments
   # GP_test
   # GP_test ## is a matrix
@@ -68,24 +72,6 @@
            "_sida_",
            pollen_dataframe[1, "Sida"]), 
     GP_test)
-  
-
-## Selects "Avstand" and "GP-value" for one side of the pollentube
-  # utvald_data = pollen_dataframe [1:200, c("Avstand", "GP")]
-  # avstand_100 = pollen_dataframe [1:200, "Avstand"]
-  # GP_200 = pollen_dataframe [1:200, "GP"]
-
-## Plotting the 200 / first GP values for 0.5 / 1px
-  # require(stats) 
-  # require(graphics) 
-  # plot(utvald_data)
-
-## Try to find peaks, col 1 = value, col 2 = peak avstand, col 3/4 = start/end
-  # library(pracma)
-  # nups = 10
-  # findpeaks(GP_200, nups = 10, ndowns = nups, zero = "0", peakpat = NULL,
-  #           minpeakheight = -Inf, minpeakdistance = 1,
-  #           threshold = 0, npeaks = 0, sortstr = FALSE)
   
 ##  Creating a function for selecting and plotting GP x avstånd
   plot_GP_avstand = function(from, to) {
@@ -111,8 +97,27 @@
             peaks_matrix
   }
   
- GP_test = GP_peaks(GP_200, halfpixel = TRUE)
- GP_test
+##  Testing ground-----------------------------------------------------------
+  
+  ## Selects "Avstand" and "GP-value" for one side of the pollentube
+  # utvald_data = pollen_dataframe [1:200, c("Avstand", "GP")]
+  # avstand_100 = pollen_dataframe [1:200, "Avstand"]
+  # GP_200 = pollen_dataframe [1:200, "GP"]
+  
+  ## Plotting the 200 / first GP values for 0.5 / 1px
+  # require(stats) 
+  # require(graphics) 
+  # plot(utvald_data)
+  
+  ## Try to find peaks, col 1 = value, col 2 = peak avstand, col 3/4 = start/end
+  # library(pracma)
+  # nups = 10
+  # findpeaks(GP_200, nups = 10, ndowns = nups, zero = "0", peakpat = NULL,
+  #           minpeakheight = -Inf, minpeakdistance = 1,
+  #           threshold = 0, npeaks = 0, sortstr = FALSE)
+ #  
+ # GP_test = GP_peaks(GP_200, halfpixel = TRUE)
+ # GP_test
 
 print("done")
   
